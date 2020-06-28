@@ -22,8 +22,8 @@ class FunctionHelperSpec extends AnyFlatSpec
 
   "FunctionHelper" should "map and filter in a Haskell-like way" in {
     val list = List(1,2,3)
-    val multiplyByTen = (x: Int) => x*10
-    val greaterThanTwo = (x: Int) => x > 2
+    val * = (x: Int) => (y: Int) => y * x
+    val > = (x: Int) => (y: Int) => y > x
 
     val mapFn: (List[Int], Int => Int) => List[Int] = List.map(_)(_)
     val filterFn: (List[Int], Int => Boolean) => List[Int] = List.filter(_)(_)
@@ -35,9 +35,9 @@ class FunctionHelperSpec extends AnyFlatSpec
     val filter = curry(flippedFilter)
 
     /* Similar syntax to Haskell
-    (map multiplyByTen . filter greaterThanTwo) list
+    (map (* 10) . filter (> 2)) list
      */
-    val result = (map(multiplyByTen) compose filter(greaterThanTwo))(list)
+    val result = (map(*(10)) compose filter(>(2)))(list)
 
     result should be(List(30))
   }
