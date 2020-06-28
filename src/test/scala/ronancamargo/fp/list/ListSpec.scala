@@ -37,10 +37,18 @@ class ListSpec extends AnyFlatSpec
     dropped should be(List(10,11))
   }
 
-
   it should "append two lists" in {
     val appended = append(List(1,2), List(3,4,5))
     appended should be(List(1,2,3,4,5))
   }
 
+  it should "map a list into another list type" in {
+    val mapped = map(List(1,2,3))(x => x*10)
+    mapped should be(List(10,20,30))
+  }
+
+  it should "filter a list" in {
+    val filtered = filter(List(1,5,2,3,10))(x => x <=3)
+    filtered should be(List(1,2,3))
+  }
 }

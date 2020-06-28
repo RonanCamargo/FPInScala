@@ -59,4 +59,19 @@ object List {
     }
   }
 
+  def map[A, B](l: List[A])(f: A => B): List[B] = {
+    l match {
+      case Nil => Nil
+      case NonEmpty(h, t) => NonEmpty(f(h), map(t)(f))
+    }
+  }
+
+  def filter[A](l: List[A])(f: A => Boolean): List[A] = {
+    l match {
+      case Nil => Nil
+      case NonEmpty(h, t) if f(h) => NonEmpty(h, filter(t)(f))
+      case NonEmpty(_, t) => filter(t)(f)
+    }
+  }
+
 }
