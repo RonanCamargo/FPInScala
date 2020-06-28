@@ -51,4 +51,24 @@ class ListSpec extends AnyFlatSpec
     val filtered = filter(List(1,5,2,3,10))(x => x <=3)
     filtered should be(List(1,2,3))
   }
+
+  it should "flat map a list" in {
+    val flatMapped = flatMap(List(1,2,3))(x => List(x,x))
+    flatMapped should be(List(1,1,2,2,3,3))
+  }
+
+  it should "filter using flatMap" in {
+    val fm = flatMap(List(1,2,3)){x =>
+      if(x != 2) List(x)
+      else Nil
+    }
+    fm should be(List(1,3))
+  }
+
+  it should "zip two lists with a function" in {
+    val zipped = zipWith(List("a","b","c"), List(2,3,2)){
+      (x,y) => fill(x,y)
+    }
+    zipped should be(List(List("a","a"), List("b","b","b"), List("c","c")))
+  }
 }

@@ -74,4 +74,21 @@ object List {
     }
   }
 
+  def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = {
+    l match {
+      case Nil => Nil
+      case NonEmpty(h, t) => append(f(h), flatMap(t)(f))
+    }
+  }
+
+  def zipWith[A,B,C](l1: List[A], l2: List[B])(f: (A,B) => C): List[C] = {
+    l1 match {
+      case Nil => Nil
+      case NonEmpty(h, t) =>
+        l2 match {
+          case NonEmpty(h2, t2) => NonEmpty(f(h,h2), zipWith(t,t2)(f))
+        }
+    }
+  }
+
 }
