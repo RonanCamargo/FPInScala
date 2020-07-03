@@ -91,4 +91,34 @@ object List {
     }
   }
 
+  @scala.annotation.tailrec
+  def foldLeft[A,B](l: List[A], seed: B)(f: (B, A) => B): B = {
+    l match {
+      case Nil => seed
+      case NonEmpty(h, t) => foldLeft(t, f(seed,h))(f)
+    }
+  }
+
+  def length[A](l: List[A]): Int = {
+    foldLeft(l,0){(x,_) => x + 1}
+  }
+
+  def forall[A](l: List[A])(f: A => Boolean): Boolean = {
+    foldLeft(l, true)((x,y) => x && f(y))
+  }
+
+  @scala.annotation.tailrec
+  def exists[A](l: List[A])(f: A => Boolean): Boolean = {
+    l match {
+      case Nil => false
+      case NonEmpty(h, _) if f(h) => true
+      case NonEmpty(_, t) => exists(t)(f)
+    }
+  }
+
+  def scanLeft[A,B](l: List[A], z: B)(f: (B,A) => B): List[B] = {
+    l match {
+      case Nil => List(z)
+    }
+  }
 }

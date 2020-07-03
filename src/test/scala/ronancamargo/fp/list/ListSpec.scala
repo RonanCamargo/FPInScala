@@ -71,4 +71,35 @@ class ListSpec extends AnyFlatSpec
     }
     zipped should be(List(List("a","a"), List("b","b","b"), List("c","c")))
   }
+
+  "foldLeft" should "calculate list size" in {
+    val size = foldLeft(List(1,2,3),0)((x,_) => x + 1)
+    size should be(3)
+  }
+
+  it should "implement exists and be true" in {
+    val exists = (l: List[Int],f: Int => Boolean) => foldLeft(l, false){(x,y) => x || f(y)}
+    exists(List(1,2,3), x => x == 2) should be(true)
+  }
+
+  "forall" should "be true" in {
+    forall(List(1,2,3))(x => x < 5) should be(true)
+  }
+
+  "exists" should "be true" in {
+    exists(List(1,2,3))(x => x == 2) should be(true)
+  }
+
+  it should "be false" in {
+    exists(List(1,2,3))(x => x == 5) should be(false)
+  }
+
+  it should "be false when List is Nil" in {
+    exists(Nil)(_: Any => true) should be(false)
+  }
+
+  "scanLeft" should "implement the first n factorials"
+
+  it should "return List(seed) when list is Nil"
+
 }
