@@ -116,9 +116,8 @@ object List {
     }
   }
 
+  //TODO
   def scanLeft[A,B](l: List[A], z: B)(f: (B,A) => B): List[B] = {
-    l match {
-      case Nil => List(z)
-    }
+    Nil
   }
 }

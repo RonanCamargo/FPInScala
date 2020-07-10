@@ -63,4 +63,9 @@ object BinaryTree {
     }
   }
 
+  //TODO
+  def fold[A,B](tree: BinaryTree[A], seed: B)(f: (A,B) => B): B  = {
+    seed
+  }
+
 }
