@@ -82,12 +82,12 @@ object List {
   }
 
   def zipWith[A,B,C](l1: List[A], l2: List[B])(f: (A,B) => C): List[C] = {
-    l1 match {
-      case Nil => Nil
-      case NonEmpty(h, t) =>
-        l2 match {
-          case NonEmpty(h2, t2) => NonEmpty(f(h,h2), zipWith(t,t2)(f))
-        }
+    (l1, l2) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (NonEmpty(x, xs), NonEmpty(y, ys)) if length(l1) == length(l2) =>
+        NonEmpty(f(x,y), zipWith(xs, ys)(f))
+      case _ => Nil
     }
   }
 
