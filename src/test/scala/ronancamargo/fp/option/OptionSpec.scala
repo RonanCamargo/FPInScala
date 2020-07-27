@@ -38,6 +38,10 @@ class OptionSpec extends AnyFlatSpec
     Option(5).filter(_ > 10) should be(None)
   }
 
+  it should "return itself" in {
+    Option(5).orElse(Option(4)) should be(Option(5))
+  }
+
 
   behavior of "None methods"
 
@@ -57,6 +61,10 @@ class OptionSpec extends AnyFlatSpec
 
   it should "filter and return None" in {
     noneOption.filter(_ > 5) should be(None)
+  }
+
+  it should "return alternative" in {
+    noneOption.orElse(Option(5)) should be(Some(5))
   }
 
 }
