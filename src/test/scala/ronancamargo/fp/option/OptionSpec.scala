@@ -2,6 +2,8 @@ package ronancamargo.fp.option
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import ronancamargo.fp.list._
+
 
 class OptionSpec extends AnyFlatSpec
   with Matchers{
@@ -66,5 +68,17 @@ class OptionSpec extends AnyFlatSpec
   it should "return alternative" in {
     noneOption.orElse(Option(5)) should be(Some(5))
   }
+
+  behavior of "Sequence function"
+
+  it should "return None" in {
+    Option.sequence(List(Some(1),None)) should be(None)
+  }
+
+  it should "turn a List of Option into a Option of a List" in {
+    Option.sequence(List(Some(1),Some(2),Some(3))) should be(Option(List(1,2,3)))
+  }
+
+
 
 }
