@@ -116,8 +116,13 @@ object List {
     }
   }
 
-  //TODO
-  def scanLeft[A,B](l: List[A], z: B)(f: (B,A) => B): List[B] = {
-    Nil
+  def scanLeft[A,B](l: List[A], z: B)(f: (B,A) => B): List[B] = l match {
+    case Nil => NonEmpty(z, Nil)
+    case NonEmpty(head, tail) => NonEmpty(z, scanLeft(tail, f(z,head))(f))
+  }
+
+  def from(initial: Int)(until: Int): List[Int] = {
+    if (initial <= until) NonEmpty(initial, from(initial + 1)(until))
+    else Nil
   }
 }

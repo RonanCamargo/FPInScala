@@ -98,8 +98,17 @@ class ListSpec extends AnyFlatSpec
     exists(Nil)(_: Any => true) should be(false)
   }
 
-  "scanLeft" should "implement the first n factorials"
+  "from" should "generate numbers from 0 to 5" in {
+    from(0)(5) should be(List(0,1,2,3,4,5))
+  }
 
-  it should "return List(seed) when list is Nil"
+  "scanLeft" should "generate the first n factorials" in {
+    val to: Int => List[Int] = from(1)
+    scanLeft(to(5), 1)(_ * _) should be(List(1,1,2,6,24,120))
+  }
+
+  it should "return List(seed) when list is Nil" in {
+    scanLeft(List[Int](), 10)(_ * _) should be(List(10))
+  }
 
 }
